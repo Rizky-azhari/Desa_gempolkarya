@@ -57,6 +57,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Website Resmi Desa Gempolkarya",
     description: "Portal pelayanan online, pengaduan masyarakat, data demografi, dan informasi kegiatan pembangunan di Desa Gempolkarya.",
+  },
+  verification: {
+    google: "E_Gh3eHCTGncsSg0E5ZQSqKjVxR0joEbNEi4L5nCpB0",
   }
 };
 
