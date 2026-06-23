@@ -47,9 +47,9 @@ export async function POST(request: Request) {
     } = body;
 
     const ticketNumber = generateTicketNumber();
-    const supabase = await createClient();
+    const adminClient = createAdminClient();
 
-    const { data, error } = await supabase
+    const { data, error } = await adminClient
       .from("complaints")
       .insert({
         ticket_number: ticketNumber,

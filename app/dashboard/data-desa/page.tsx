@@ -23,6 +23,8 @@ import {
   Save,
   RefreshCw,
   FileText,
+  Pencil,
+  X,
 } from "lucide-react";
 import {
   PieChart,
@@ -74,6 +76,12 @@ export default function DashboardDataDesaPage() {
   const [mounted, setMounted] = useState(false);
   const [genderInputs, setGenderInputs] = useState<string[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  // Edit states for lists
+  const [editingEduIdx, setEditingEduIdx] = useState<number | null>(null);
+  const [editingJobIdx, setEditingJobIdx] = useState<number | null>(null);
+  const [editingAgeIdx, setEditingAgeIdx] = useState<number | null>(null);
+  const [editingReligionIdx, setEditingReligionIdx] = useState<number | null>(null);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -593,18 +601,34 @@ export default function DashboardDataDesaPage() {
   const handleAddEdu = async () => {
     if (!newEdu.level.trim()) return toast.error("Isi tingkat pendidikan!");
     const countVal = newEdu.count === "" ? 0 : Number(newEdu.count);
+    
+    let updatedEdu;
+    let activityAction = "Menambah Data Pendidikan";
+    let activityDetails = `Menambahkan tingkat pendidikan ${newEdu.level} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    
+    if (editingEduIdx !== null) {
+      updatedEdu = demoStats.education.map((e, idx) => 
+        idx === editingEduIdx ? { level: newEdu.level, count: countVal } : e
+      );
+      activityAction = "Mengubah Data Pendidikan";
+      activityDetails = `Mengubah tingkat pendidikan ${newEdu.level} menjadi sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    } else {
+      updatedEdu = [...demoStats.education, { level: newEdu.level, count: countVal }];
+    }
+
     const updated = {
       ...demoStats,
-      education: [...demoStats.education, { level: newEdu.level, count: countVal }],
+      education: updatedEdu,
     };
     setDemoStats(updated);
     await saveDemographicStats(updated);
     setNewEdu({ level: "", count: "" });
+    setEditingEduIdx(null);
     window.dispatchEvent(new Event("local-stats-updated"));
-    toast.success("Tingkat pendidikan baru berhasil ditambahkan!");
+    toast.success(editingEduIdx !== null ? "Data pendidikan berhasil diperbarui!" : "Tingkat pendidikan baru berhasil ditambahkan!");
     
     const { logActivity } = await import("@/lib/activity");
-    logActivity("Menambah Data Pendidikan", `Menambahkan tingkat pendidikan ${newEdu.level} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`);
+    logActivity(activityAction, activityDetails);
     
     await loadAllData();
   };
@@ -615,6 +639,8 @@ export default function DashboardDataDesaPage() {
     const updated = { ...demoStats, education: updatedList };
     setDemoStats(updated);
     await saveDemographicStats(updated);
+    setEditingEduIdx(null);
+    setNewEdu({ level: "", count: "" });
     window.dispatchEvent(new Event("local-stats-updated"));
     toast.success("Data pendidikan berhasil dihapus!");
     
@@ -629,18 +655,34 @@ export default function DashboardDataDesaPage() {
   const handleAddJob = async () => {
     if (!newJob.title.trim()) return toast.error("Isi nama pekerjaan!");
     const countVal = newJob.count === "" ? 0 : Number(newJob.count);
+    
+    let updatedJob;
+    let activityAction = "Menambah Data Pekerjaan";
+    let activityDetails = `Menambahkan pekerjaan ${newJob.title} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    
+    if (editingJobIdx !== null) {
+      updatedJob = demoStats.job.map((j, idx) => 
+        idx === editingJobIdx ? { title: newJob.title, count: countVal } : j
+      );
+      activityAction = "Mengubah Data Pekerjaan";
+      activityDetails = `Mengubah pekerjaan ${newJob.title} menjadi sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    } else {
+      updatedJob = [...demoStats.job, { title: newJob.title, count: countVal }];
+    }
+
     const updated = {
       ...demoStats,
-      job: [...demoStats.job, { title: newJob.title, count: countVal }],
+      job: updatedJob,
     };
     setDemoStats(updated);
     await saveDemographicStats(updated);
     setNewJob({ title: "", count: "" });
+    setEditingJobIdx(null);
     window.dispatchEvent(new Event("local-stats-updated"));
-    toast.success("Pekerjaan baru berhasil ditambahkan!");
+    toast.success(editingJobIdx !== null ? "Data pekerjaan berhasil diperbarui!" : "Pekerjaan baru berhasil ditambahkan!");
     
     const { logActivity } = await import("@/lib/activity");
-    logActivity("Menambah Data Pekerjaan", `Menambahkan pekerjaan ${newJob.title} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`);
+    logActivity(activityAction, activityDetails);
     
     await loadAllData();
   };
@@ -651,6 +693,8 @@ export default function DashboardDataDesaPage() {
     const updated = { ...demoStats, job: updatedList };
     setDemoStats(updated);
     await saveDemographicStats(updated);
+    setEditingJobIdx(null);
+    setNewJob({ title: "", count: "" });
     window.dispatchEvent(new Event("local-stats-updated"));
     toast.success("Data pekerjaan berhasil dihapus!");
     
@@ -665,18 +709,34 @@ export default function DashboardDataDesaPage() {
   const handleAddAge = async () => {
     if (!newAge.range.trim()) return toast.error("Isi rentang usia!");
     const countVal = newAge.count === "" ? 0 : Number(newAge.count);
+    
+    let updatedAge;
+    let activityAction = "Menambah Kelompok Usia";
+    let activityDetails = `Menambahkan kelompok usia ${newAge.range} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    
+    if (editingAgeIdx !== null) {
+      updatedAge = demoStats.ageGroup.map((a, idx) => 
+        idx === editingAgeIdx ? { range: newAge.range, count: countVal } : a
+      );
+      activityAction = "Mengubah Kelompok Usia";
+      activityDetails = `Mengubah kelompok usia ${newAge.range} menjadi sejumlah ${countVal.toLocaleString("id-ID")} jiwa`;
+    } else {
+      updatedAge = [...demoStats.ageGroup, { range: newAge.range, count: countVal }];
+    }
+
     const updated = {
       ...demoStats,
-      ageGroup: [...demoStats.ageGroup, { range: newAge.range, count: countVal }],
+      ageGroup: updatedAge,
     };
     setDemoStats(updated);
     await saveDemographicStats(updated);
     setNewAge({ range: "", count: "" });
+    setEditingAgeIdx(null);
     window.dispatchEvent(new Event("local-stats-updated"));
-    toast.success("Kelompok usia baru berhasil ditambahkan!");
+    toast.success(editingAgeIdx !== null ? "Data kelompok usia berhasil diperbarui!" : "Kelompok usia baru berhasil ditambahkan!");
     
     const { logActivity } = await import("@/lib/activity");
-    logActivity("Menambah Kelompok Usia", `Menambahkan kelompok usia ${newAge.range} sejumlah ${countVal.toLocaleString("id-ID")} jiwa`);
+    logActivity(activityAction, activityDetails);
     
     await loadAllData();
   };
@@ -687,6 +747,8 @@ export default function DashboardDataDesaPage() {
     const updated = { ...demoStats, ageGroup: updatedList };
     setDemoStats(updated);
     await saveDemographicStats(updated);
+    setEditingAgeIdx(null);
+    setNewAge({ range: "", count: "" });
     window.dispatchEvent(new Event("local-stats-updated"));
     toast.success("Data kelompok usia berhasil dihapus!");
     
@@ -700,24 +762,48 @@ export default function DashboardDataDesaPage() {
   const [newReligion, setNewReligion] = useState<{ name: string; count: string; percentage: string }>({ name: "", count: "", percentage: "" });
   const handleAddReligion = async () => {
     if (!newReligion.name.trim()) return toast.error("Isi nama agama!");
-    
     const countVal = newReligion.count === "" ? 0 : Number(newReligion.count);
-    // Auto calculate percentage
-    const totalCount = religionStats.reduce((sum, item) => sum + item.count, 0) + countVal;
-    const updatedList = [...religionStats, {
-      name: newReligion.name,
-      count: countVal,
-      percentage: newReligion.percentage.trim() || `${((countVal / (totalCount || 1)) * 100).toFixed(1)}%`
-    }];
+    
+    let updatedList;
+    let activityAction = "Menambah Data Keagamaan";
+    let activityDetails = `Menambahkan data agama ${newReligion.name} sejumlah ${countVal.toLocaleString("id-ID")} warga`;
+    
+    if (editingReligionIdx !== null) {
+      const otherReligionsTotal = religionStats
+        .filter((_, idx) => idx !== editingReligionIdx)
+        .reduce((sum, item) => sum + item.count, 0);
+      const totalCount = otherReligionsTotal + countVal;
+      
+      updatedList = religionStats.map((r, idx) => {
+        if (idx === editingReligionIdx) {
+          return {
+            name: newReligion.name,
+            count: countVal,
+            percentage: newReligion.percentage.trim() || `${((countVal / (totalCount || 1)) * 100).toFixed(1)}%`
+          };
+        }
+        return r;
+      });
+      activityAction = "Mengubah Data Keagamaan";
+      activityDetails = `Mengubah data agama ${newReligion.name} menjadi sejumlah ${countVal.toLocaleString("id-ID")} warga`;
+    } else {
+      const totalCount = religionStats.reduce((sum, item) => sum + item.count, 0) + countVal;
+      updatedList = [...religionStats, {
+        name: newReligion.name,
+        count: countVal,
+        percentage: newReligion.percentage.trim() || `${((countVal / (totalCount || 1)) * 100).toFixed(1)}%`
+      }];
+    }
     
     setReligionStats(updatedList);
     await saveReligionStats(updatedList);
     setNewReligion({ name: "", count: "", percentage: "" });
+    setEditingReligionIdx(null);
     window.dispatchEvent(new Event("local-stats-updated"));
-    toast.success("Data agama baru berhasil ditambahkan!");
+    toast.success(editingReligionIdx !== null ? "Data agama berhasil diperbarui!" : "Data agama baru berhasil ditambahkan!");
     
     const { logActivity } = await import("@/lib/activity");
-    logActivity("Menambah Data Keagamaan", `Menambahkan data agama ${newReligion.name} sejumlah ${countVal.toLocaleString("id-ID")} warga`);
+    logActivity(activityAction, activityDetails);
     
     await loadAllData();
   };
@@ -727,6 +813,8 @@ export default function DashboardDataDesaPage() {
     const updatedList = religionStats.filter((_, i) => i !== idx);
     setReligionStats(updatedList);
     await saveReligionStats(updatedList);
+    setEditingReligionIdx(null);
+    setNewReligion({ name: "", count: "", percentage: "" });
     window.dispatchEvent(new Event("local-stats-updated"));
     toast.success("Data agama berhasil dihapus!");
     
@@ -1164,10 +1252,25 @@ export default function DashboardDataDesaPage() {
                     className="rounded-xl text-xs bg-white"
                   />
                 </div>
-                <Button onClick={handleAddEdu} className="bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
-                  <Plus className="h-4 w-4" />
-                  Tambah Data
-                </Button>
+                <div className="flex gap-2">
+                  <Button onClick={handleAddEdu} className="flex-1 bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
+                    {editingEduIdx !== null ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {editingEduIdx !== null ? "Simpan Perubahan" : "Tambah Data"}
+                  </Button>
+                  {editingEduIdx !== null && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditingEduIdx(null);
+                        setNewEdu({ level: "", count: "" });
+                      }}
+                      className="border-orinoco/30 rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer"
+                    >
+                      <X className="h-4 w-4" />
+                      Batal
+                    </Button>
+                  )}
+                </div>
               </div>
 
               {/* Tabel/Daftar Pendidikan */}
@@ -1177,7 +1280,7 @@ export default function DashboardDataDesaPage() {
                     <tr className="border-b border-border">
                       <th className="text-left p-3 font-bold">Tingkat Pendidikan</th>
                       <th className="text-left p-3 font-bold">Jumlah Jiwa</th>
-                      <th className="text-right p-3 font-bold">Aksi</th>
+                      <th className="text-right pr-6 p-3 font-bold">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1185,12 +1288,25 @@ export default function DashboardDataDesaPage() {
                       <tr key={idx} className="border-b border-orinoco/10 hover:bg-cardSoft/20">
                         <td className="p-3 font-semibold text-textMain">{e.level}</td>
                         <td className="p-3">{e.count.toLocaleString()} Jiwa</td>
-                        <td className="p-3 text-right">
+                        <td className="p-3 text-right flex justify-end gap-1.5 pr-4">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setNewEdu({ level: e.level, count: String(e.count) });
+                              setEditingEduIdx(idx);
+                            }}
+                            className="h-8 w-8 text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => handleDeleteEdu(idx)}
                             className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                            title="Hapus"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
@@ -1228,10 +1344,25 @@ export default function DashboardDataDesaPage() {
                     className="rounded-xl text-xs bg-white"
                   />
                 </div>
-                <Button onClick={handleAddJob} className="bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
-                  <Plus className="h-4 w-4" />
-                  Tambah Data
-                </Button>
+                <div className="flex gap-2">
+                  <Button onClick={handleAddJob} className="flex-1 bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
+                    {editingJobIdx !== null ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {editingJobIdx !== null ? "Simpan Perubahan" : "Tambah Data"}
+                  </Button>
+                  {editingJobIdx !== null && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditingJobIdx(null);
+                        setNewJob({ title: "", count: "" });
+                      }}
+                      className="border-orinoco/30 rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer"
+                    >
+                      <X className="h-4 w-4" />
+                      Batal
+                    </Button>
+                  )}
+                </div>
               </div>
 
               <div className="border border-border rounded-2xl overflow-hidden">
@@ -1240,7 +1371,7 @@ export default function DashboardDataDesaPage() {
                     <tr className="border-b border-border">
                       <th className="text-left p-3 font-bold">Nama Pekerjaan</th>
                       <th className="text-left p-3 font-bold">Jumlah Jiwa</th>
-                      <th className="text-right p-3 font-bold">Aksi</th>
+                      <th className="text-right pr-6 p-3 font-bold">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1248,12 +1379,25 @@ export default function DashboardDataDesaPage() {
                       <tr key={idx} className="border-b border-orinoco/10 hover:bg-cardSoft/20">
                         <td className="p-3 font-semibold text-textMain">{j.title}</td>
                         <td className="p-3">{j.count.toLocaleString()} Jiwa</td>
-                        <td className="p-3 text-right">
+                        <td className="p-3 text-right flex justify-end gap-1.5 pr-4">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setNewJob({ title: j.title, count: String(j.count) });
+                              setEditingJobIdx(idx);
+                            }}
+                            className="h-8 w-8 text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => handleDeleteJob(idx)}
                             className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                            title="Hapus"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
@@ -1291,10 +1435,25 @@ export default function DashboardDataDesaPage() {
                     className="rounded-xl text-xs bg-white"
                   />
                 </div>
-                <Button onClick={handleAddAge} className="bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
-                  <Plus className="h-4 w-4" />
-                  Tambah Data
-                </Button>
+                <div className="flex gap-2">
+                  <Button onClick={handleAddAge} className="flex-1 bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
+                    {editingAgeIdx !== null ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {editingAgeIdx !== null ? "Simpan Perubahan" : "Tambah Data"}
+                  </Button>
+                  {editingAgeIdx !== null && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditingAgeIdx(null);
+                        setNewAge({ range: "", count: "" });
+                      }}
+                      className="border-orinoco/30 rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer"
+                    >
+                      <X className="h-4 w-4" />
+                      Batal
+                    </Button>
+                  )}
+                </div>
               </div>
 
               <div className="border border-border rounded-2xl overflow-hidden">
@@ -1303,7 +1462,7 @@ export default function DashboardDataDesaPage() {
                     <tr className="border-b border-border">
                       <th className="text-left p-3 font-bold">Rentang Usia</th>
                       <th className="text-left p-3 font-bold">Jumlah Jiwa</th>
-                      <th className="text-right p-3 font-bold">Aksi</th>
+                      <th className="text-right pr-6 p-3 font-bold">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1311,12 +1470,25 @@ export default function DashboardDataDesaPage() {
                       <tr key={idx} className="border-b border-orinoco/10 hover:bg-cardSoft/20">
                         <td className="p-3 font-semibold text-textMain">{a.range}</td>
                         <td className="p-3">{a.count.toLocaleString()} Jiwa</td>
-                        <td className="p-3 text-right">
+                        <td className="p-3 text-right flex justify-end gap-1.5 pr-4">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setNewAge({ range: a.range, count: String(a.count) });
+                              setEditingAgeIdx(idx);
+                            }}
+                            className="h-8 w-8 text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => handleDeleteAge(idx)}
                             className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                            title="Hapus"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
@@ -1363,10 +1535,25 @@ export default function DashboardDataDesaPage() {
                     className="rounded-xl text-xs bg-white"
                   />
                 </div>
-                <Button onClick={handleAddReligion} className="bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
-                  <Plus className="h-4 w-4" />
-                  Tambah Agama
-                </Button>
+                <div className="flex gap-2">
+                  <Button onClick={handleAddReligion} className="flex-1 bg-verdun hover:bg-[#3a4217] text-white rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer">
+                    {editingReligionIdx !== null ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                    {editingReligionIdx !== null ? "Simpan" : "Tambah Agama"}
+                  </Button>
+                  {editingReligionIdx !== null && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setEditingReligionIdx(null);
+                        setNewReligion({ name: "", count: "", percentage: "" });
+                      }}
+                      className="border-orinoco/30 rounded-xl text-xs font-semibold gap-1.5 py-4 cursor-pointer"
+                    >
+                      <X className="h-4 w-4" />
+                      Batal
+                    </Button>
+                  )}
+                </div>
               </div>
 
               <div className="border border-border rounded-2xl overflow-hidden">
@@ -1376,7 +1563,7 @@ export default function DashboardDataDesaPage() {
                       <th className="text-left p-3 font-bold">Agama / Keyakinan</th>
                       <th className="text-left p-3 font-bold">Jumlah Jiwa</th>
                       <th className="text-left p-3 font-bold">Persentase</th>
-                      <th className="text-right p-3 font-bold">Aksi</th>
+                      <th className="text-right pr-6 p-3 font-bold">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1385,12 +1572,25 @@ export default function DashboardDataDesaPage() {
                         <td className="p-3 font-semibold text-textMain">{r.name}</td>
                         <td className="p-3">{r.count.toLocaleString()} Jiwa</td>
                         <td className="p-3 font-semibold text-primary">{r.percentage}</td>
-                        <td className="p-3 text-right">
+                        <td className="p-3 text-right flex justify-end gap-1.5 pr-4">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {
+                              setNewReligion({ name: r.name, count: String(r.count), percentage: r.percentage });
+                              setEditingReligionIdx(idx);
+                            }}
+                            className="h-8 w-8 text-blue-500 hover:text-blue-700 hover:bg-blue-50"
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </Button>
                           <Button
                             variant="ghost"
                             size="icon"
                             onClick={() => handleDeleteReligion(idx)}
                             className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
+                            title="Hapus"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>

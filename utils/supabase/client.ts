@@ -41,7 +41,7 @@ if (typeof window !== "undefined") {
         console.error("Failed to inject auth token into fetch:", e);
       }
     }
-    return originalFetch(input, init);
+    return init === undefined ? originalFetch(input) : originalFetch(input, init);
   };
 }
 

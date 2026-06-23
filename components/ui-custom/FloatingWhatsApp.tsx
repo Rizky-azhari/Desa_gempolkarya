@@ -3,18 +3,27 @@
 import * as React from "react";
 import { MessageSquare, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { villageProfile } from "@/data/village";
 
 export function FloatingWhatsApp() {
+  const pathname = usePathname();
   const [showTooltip, setShowTooltip] = React.useState(false);
 
   React.useEffect(() => {
+    if (pathname?.startsWith("/dashboard")) {
+      return;
+    }
     // Show tooltip after 3 seconds
     const timer = setTimeout(() => {
       setShowTooltip(true);
     }, 3000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
+
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
