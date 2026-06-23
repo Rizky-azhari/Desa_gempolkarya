@@ -20,9 +20,69 @@ const bodyFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Website Resmi Desa Gempolkarya",
+  metadataBase: new URL("https://desa-gempolkarya.vercel.app"),
+  title: {
+    default: "Website Resmi Desa Gempolkarya | Tirtajaya, Karawang",
+    template: "%s | Website Resmi Desa Gempolkarya"
+  },
   description: "Portal resmi pelayanan publik, berita pembangunan, demografi, dan profil Desa Gempolkarya, Kecamatan Tirtajaya, Kabupaten Karawang.",
-  keywords: ["Desa Gempolkarya", "Tirtajaya", "Karawang", "Website Desa", "Pelayanan Desa Online"],
+  keywords: [
+    "Desa Gempolkarya",
+    "Website Resmi Desa Gempolkarya",
+    "Desa Gempolkarya Kecamatan Tirtajaya",
+    "Desa Gempolkarya Kabupaten Karawang",
+    "Layanan Desa Gempolkarya",
+    "Pengaduan Desa Gempolkarya",
+    "Berita Desa Gempolkarya",
+    "Kantor Desa Gempolkarya",
+    "Tirtajaya",
+    "Karawang",
+    "Pemerintahan Desa Gempolkarya"
+  ],
+  authors: [{ name: "Pemerintah Desa Gempolkarya" }],
+  creator: "Pemerintah Desa Gempolkarya",
+  publisher: "Pemerintah Desa Gempolkarya",
+  alternates: {
+    canonical: "./",
+  },
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://desa-gempolkarya.vercel.app",
+    title: "Website Resmi Desa Gempolkarya",
+    description: "Portal pelayanan online, pengaduan masyarakat, data demografi, dan informasi kegiatan pembangunan di Desa Gempolkarya, Kecamatan Tirtajaya, Kabupaten Karawang.",
+    siteName: "Desa Gempolkarya",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Website Resmi Desa Gempolkarya",
+    description: "Portal pelayanan online, pengaduan masyarakat, data demografi, dan informasi kegiatan pembangunan di Desa Gempolkarya.",
+  }
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOffice",
+  "@id": "https://desa-gempolkarya.vercel.app/#government",
+  "name": "Pemerintah Desa Gempolkarya",
+  "alternateName": "Website Resmi Desa Gempolkarya",
+  "description": "Kantor pelayanan pemerintahan Desa Gempolkarya, Kecamatan Tirtajaya, Kabupaten Karawang, Jawa Barat.",
+  "url": "https://desa-gempolkarya.vercel.app",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Raya Gempolkarya No. 01, Kecamatan Tirtajaya",
+    "addressLocality": "Kabupaten Karawang",
+    "addressRegion": "Jawa Barat",
+    "postalCode": "41358",
+    "addressCountry": "ID"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+6281234567890",
+    "contactType": "customer service",
+    "areaServed": "ID",
+    "availableLanguage": "Indonesian"
+  }
 };
 
 export default function RootLayout({
@@ -43,6 +103,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
           <Navbar />
           <main className="flex-1 flex flex-col">{children}</main>
           <Footer />

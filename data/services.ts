@@ -35,7 +35,7 @@ export const publicServices: ServiceItem[] = [
   {
     id: 's3',
     title: 'Surat Keterangan Usaha (SKU)',
-    description: 'Surat keterangan resmi yang menyatakan bahwa pemohon benar memiliki usaha mikro/kecil aktif di wilayah Desa Citimun.',
+    description: 'Surat keterangan resmi yang menyatakan bahwa pemohon benar memiliki usaha mikro/kecil aktif di wilayah Desa Gempolkarya.',
     requirements: [
       'Surat pengantar RT/RW setempat',
       'Fotokopi KTP & KK pemohon',

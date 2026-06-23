@@ -224,7 +224,7 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[350px] p-6 overflow-y-auto">
               <SheetTitle className="text-left font-heading text-xl font-bold mb-4 text-textMain dark:text-foreground flex items-center gap-2 border-b border-border/30 pb-3">
-                <TreePine className="h-5 w-5 text-primary" /> Menu Citimun
+                <TreePine className="h-5 w-5 text-primary" /> Menu Gempolkarya
               </SheetTitle>
               <div className="flex flex-col gap-2 mt-4 font-sans">
                 <Link

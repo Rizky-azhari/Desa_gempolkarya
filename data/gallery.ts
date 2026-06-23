@@ -11,7 +11,7 @@ export const galleryList: GalleryItem[] = [
   },
   {
     id: 'g2',
-    title: 'Gotong Royong Kerja Bakti Drainase Dusun Cikuda',
+    title: 'Gotong Royong Kerja Bakti Drainase Dusun Gempol',
     description: 'Warga RW 02 bergotong royong melakukan pembersihan dan pengerukan lumpur di saluran drainase mengantisipasi banjir musim hujan.',
     image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-14',
@@ -27,7 +27,7 @@ export const galleryList: GalleryItem[] = [
   },
   {
     id: 'g4',
-    title: 'Pembagian Bibit Durian Bawor untuk Citimun Hijau',
+    title: 'Pembagian Bibit Durian Bawor untuk Gempolkarya Hijau',
     description: 'Penyerahan secara simbolis bibit durian bawor unggul oleh Kepala Desa kepada perwakilan warga sebagai bagian kampanye pelestarian alam.',
     image: 'https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-12',
@@ -44,7 +44,7 @@ export const galleryList: GalleryItem[] = [
   {
     id: 'g6',
     title: 'Workshop Peningkatan Kualitas Kemasan Produk UMKM',
-    description: 'Suasana pelatihan desain dan kemasan produk bagi pelaku usaha mikro makanan olahan di Aula Desa Citimun.',
+    description: 'Suasana pelatihan desain dan kemasan produk bagi pelaku usaha mikro makanan olahan di Aula Desa Gempolkarya.',
     image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-04',
     category: 'Pemerintahan'
@@ -67,23 +67,23 @@ export const galleryList: GalleryItem[] = [
   },
   {
     id: 'g9',
-    title: 'Pengecoran Jalan Penghubung Antar Dusun Cikuda',
-    description: 'Progres pelaksanaan pengecoran semen jalan penghubung Dusun Cikuda menuju Dusun Pasir yang didanai Dana Desa.',
+    title: 'Pengecoran Jalan Penghubung Antar Dusun',
+    description: 'Progres pelaksanaan pengecoran semen jalan penghubung Dusun Gempol menuju Dusun Medankarya yang didanai Dana Desa.',
     image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-18',
     category: 'Pembangunan'
   },
   {
     id: 'g10',
-    title: 'Sosialisasi Mitigasi Bahaya Bencana Alam Longsor',
-    description: 'Tim Linmas bersama BPBD memberikan pembekalan penanggulangan tanggap darurat bencana longsor bagi perwakilan warga lereng Tampomas.',
+    title: 'Sosialisasi Mitigasi Bahaya Bencana Alam & Evakuasi',
+    description: 'Tim Linmas bersama BPBD memberikan pembekalan penanggulangan tanggap darurat bencana alam bagi perwakilan warga Desa Gempolkarya.',
     image: 'https://images.unsplash.com/photo-1526256262170-86b22c77a441?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-05',
     category: 'Kegiatan'
   },
   {
     id: 'g11',
-    title: 'Senam Sehat Ceria Bersama Lansia Desa Citimun',
+    title: 'Senam Sehat Ceria Bersama Lansia Desa Gempolkarya',
     description: 'Kegiatan senam bugar rutin bagi para sesepuh dan lansia desa untuk menjaga stamina fisik yang dilaksanakan di pelataran aula desa.',
     image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-07',
@@ -91,8 +91,8 @@ export const galleryList: GalleryItem[] = [
   },
   {
     id: 'g12',
-    title: 'Peresmian Jembatan Usaha Tani Blok sawah Suka Maju',
-    description: 'Gunting pita peresmian jembatan penghubung jalur traktor sawah oleh jajaran Forkopimcam Cimalaka bersama Kepala Desa.',
+    title: 'Peresmian Jembatan Usaha Tani Blok Sawah Suka Maju',
+    description: 'Gunting pita peresmian jembatan penghubung jalur traktor sawah oleh jajaran Forkopimcam Tirtajaya bersama Kepala Desa.',
     image: 'https://images.unsplash.com/photo-1473163928189-364b2c4e1135?auto=format&fit=crop&q=80&w=800',
     date: '2026-06-19',
     category: 'Pembangunan'

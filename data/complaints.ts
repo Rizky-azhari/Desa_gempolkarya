@@ -16,18 +16,18 @@ export const publicComplaints: ComplaintItem[] = [
     id: 'c2',
     reporterName: 'Siti Rahma',
     title: 'Lampu Penerangan Jalan Umum (PJU) Mati',
-    description: 'Lampu penerangan di sepanjang jalan tanjakan dekat batas desa Dusun II mati sejak seminggu lalu. Jalan menjadi gelap gulita saat malam hari.',
+    description: 'Lampu penerangan di sepanjang jalan dekat batas desa Dusun II mati sejak seminggu lalu. Jalan menjadi gelap gulita saat malam hari.',
     category: 'Infrastruktur',
     date: '2026-06-18',
     status: 'Sedang Diproses',
-    response: 'Laporan telah kami teruskan ke Dinas Perhubungan Kabupaten Sumedang. Saat ini sedang dijadwalkan untuk perbaikan lampu PJU.',
+    response: 'Laporan telah kami teruskan ke Dinas Perhubungan Kabupaten Karawang. Saat ini sedang dijadwalkan untuk perbaikan lampu PJU.',
     responseDate: '2026-06-19'
   },
   {
     id: 'c3',
     reporterName: 'Wawan Hermawan',
     title: 'Jalan Berlubang di Dekat Gapura Masuk Desa',
-    description: 'Jalan aspal di sekitar gapura masuk desa Citimun berlubang cukup dalam, membahayakan pengendara motor saat hujan.',
+    description: 'Jalan aspal di sekitar gapura masuk desa Gempolkarya berlubang cukup dalam, membahayakan pengendara motor saat hujan.',
     category: 'Infrastruktur',
     date: '2026-06-17',
     status: 'Sedang Diproses',
@@ -62,7 +62,7 @@ export const publicComplaints: ComplaintItem[] = [
     category: 'Pertanian',
     date: '2026-06-12',
     status: 'Selesai',
-    response: 'Saran diterima dengan baik. Pemdes berkolaborasi dengan Balai Penyuluhan Pertanian (BPP) Cimalaka akan menjadwalkan demo pembuatan kompos bulan depan.',
+    response: 'Saran diterima dengan baik. Pemdes berkolaborasi dengan Balai Penyuluhan Pertanian (BPP) Tirtajaya akan menjadwalkan demo pembuatan kompos bulan depan.',
     responseDate: '2026-06-14'
   },
   {

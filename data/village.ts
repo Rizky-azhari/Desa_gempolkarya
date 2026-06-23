@@ -74,6 +74,6 @@ export const demographicStats: DemographicData = {
 export const mainSummaryCards = [
   { label: 'Total Penduduk', value: '4.826', desc: 'Jiwa terdaftar', trend: '+1.4% thn ini' },
   { label: 'Jumlah KK', value: '1.392', desc: 'Kepala Keluarga', trend: 'Rata-rata 3.4 jiwa/KK' },
-  { label: 'Luas Wilayah', value: '425 Ha', desc: 'Pertanian & Pemukiman', trend: 'Hawa sejuk pegunungan' },
+  { label: 'Luas Wilayah', value: '425 Ha', desc: 'Pertanian & Pemukiman', trend: 'Kawasan pesisir & tani' },
   { label: 'Rukun Tangga', value: '24 RT / 8 RW', desc: 'Unit Kewilayahan', trend: '8 RW Administratif' }
 ];
