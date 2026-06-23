@@ -1,19 +1,12 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://desa-gempolkarya.vercel.app';
-
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: [
-        '/dashboard/',
-        '/admin/',
-        '/login',
-        '/api/',
-      ],
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/admin", "/dashboard", "/api"],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: "https://desa-gempolkarya.vercel.app/sitemap.xml",
   };
 }
