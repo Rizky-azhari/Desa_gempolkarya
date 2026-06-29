@@ -20,20 +20,6 @@ const SEED_USERS = [
     role: "admin_desa",
     fixed: false,
   },
-  {
-    email: "kepala.desa@desa.go.id",
-    password: "Kepala123",
-    name: "Kepala Desa",
-    role: "kepala_desa",
-    fixed: false,
-  },
-  {
-    email: "sekretaris@desa.go.id",
-    password: "Sekretaris123",
-    name: "Sekretaris Desa",
-    role: "sekretaris_desa",
-    fixed: false,
-  },
 ];
 
 export async function GET() {

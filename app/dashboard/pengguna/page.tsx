@@ -271,8 +271,6 @@ export default function UserManagementPage() {
                 <option value="all">Semua Peran</option>
                 <option value="super_admin">Super Admin</option>
                 <option value="admin_desa">Admin Desa</option>
-                <option value="kepala_desa">Kepala Desa</option>
-                <option value="sekretaris_desa">Sekretaris Desa</option>
               </select>
             </div>
 

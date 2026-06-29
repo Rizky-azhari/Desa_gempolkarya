@@ -18,9 +18,10 @@ import { toast } from "sonner";
 
 interface ServiceCardProps {
   service: ServiceItem;
+  whatsapp?: string;
 }
 
-export function ServiceCard({ service }: ServiceCardProps) {
+export function ServiceCard({ service, whatsapp }: ServiceCardProps) {
   const getCategoryStatus = (cat: typeof service.category) => {
     switch (cat) {
       case "Administrasi":
@@ -35,10 +36,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
   };
 
   const handleApply = () => {
+    const targetWhatsapp = whatsapp || villageProfile.whatsapp;
     const waText = encodeURIComponent(
       `Halo Pelayanan Desa ${villageProfile.name}, saya ingin menanyakan persyaratan atau pengajuan untuk layanan: *${service.title}*`
     );
-    window.open(`https://wa.me/${villageProfile.whatsapp}?text=${waText}`, "_blank");
+    window.open(`https://wa.me/${targetWhatsapp}?text=${waText}`, "_blank");
     toast.success("Membuka WhatsApp Layanan Desa...");
   };
 

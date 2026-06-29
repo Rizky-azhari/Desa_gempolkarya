@@ -18,8 +18,6 @@ interface UserFormDialogProps {
 
 const AVAILABLE_ROLES = [
   { value: "admin_desa", label: "Admin Desa" },
-  { value: "kepala_desa", label: "Kepala Desa" },
-  { value: "sekretaris_desa", label: "Sekretaris Desa" },
 ];
 
 export function UserFormDialog({ isOpen, onOpenChange, userToEdit, onSuccess }: UserFormDialogProps) {

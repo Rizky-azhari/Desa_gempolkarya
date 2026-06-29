@@ -23,9 +23,7 @@ export default function RoleSettingsPage() {
 
   const roleDescriptions: Record<UserRole, string> = {
     super_admin: "Akses sistem penuh. Memiliki izin mutlak untuk mengelola pengguna, data desa, dan seluruh modul administrasi.",
-    admin_desa: "Administrator operasional harian. Mengelola profil desa, berita, UMKM, galeri, serta modul pelayanan publik dan pengaduan.",
-    kepala_desa: "Hak akses pemantauan dan persetujuan. Melihat data demografi, layanan kependudukan, pengaduan warga, berita, dan peta RT/RW.",
-    sekretaris_desa: "Pengawas administrasi wilayah dan tata kelola perangkat. Mengelola data kependudukan, aparatur desa, layanan, dan peta wilayah.",
+    admin_desa: "Administrator operasional desa. Memiliki semua hak akses pengelolaan kecuali pengelolaan pengguna dan pengaturan role.",
   };
 
   const allModules = [

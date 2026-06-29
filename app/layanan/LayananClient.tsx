@@ -13,11 +13,14 @@ import { createClient } from "@/utils/supabase/client";
 export default function LayananClient() {
   const breadcrumbs = [{ label: "Layanan Publik" }];
   const [services, setServices] = useState<any[]>(publicServices);
+  const [whatsapp, setWhatsapp] = useState<string>(villageProfile.whatsapp);
 
   useEffect(() => {
     async function load() {
       try {
         const supabase = createClient();
+        
+        // Fetch services
         const { data, error } = await supabase
           .from("services")
           .select("*")
@@ -35,8 +38,17 @@ export default function LayananClient() {
             slug: s.slug
           })));
         }
+
+        // Fetch WhatsApp config from village profile
+        const { data: pData } = await supabase
+          .from("village_profile")
+          .select("whatsapp")
+          .maybeSingle();
+        if (pData && pData.whatsapp) {
+          setWhatsapp(pData.whatsapp);
+        }
       } catch (e) {
-        console.error(e);
+        console.error("Gagal memuat layanan/kontak WA:", e);
       }
     }
     load();
@@ -94,7 +106,7 @@ export default function LayananClient() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {getFilteredServices(cat.value).length > 0 ? (
                     getFilteredServices(cat.value).map((service) => (
-                      <ServiceCard key={service.id} service={service} />
+                      <ServiceCard key={service.id} service={service} whatsapp={whatsapp} />
                     ))
                   ) : (
                     <div className="col-span-full py-12 text-center text-textMuted dark:text-muted-foreground font-sans">

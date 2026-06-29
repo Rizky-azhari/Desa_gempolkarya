@@ -5,7 +5,7 @@ import { rtrwList } from "@/data/rtrw";
 import { DashboardTable } from "@/components/dashboard/DashboardTable";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Edit, MapPin, Eye, Users, Home, Plus } from "lucide-react";
+import { Edit, MapPin, Eye, Users, Home, Plus, Phone } from "lucide-react";
 import { toast } from "sonner";
 import { villageProfile } from "@/data/village";
 import {
@@ -33,6 +33,7 @@ export default function DashboardRtrwPage() {
     rt: "",
     rw: "",
     headName: "",
+    phone: "",
     population: 0,
     households: 0,
   });
@@ -83,6 +84,7 @@ export default function DashboardRtrwPage() {
       rt: "",
       rw: "",
       headName: "",
+      phone: "",
       population: 0,
       households: 0,
     });
@@ -95,6 +97,7 @@ export default function DashboardRtrwPage() {
       rt: item.rt,
       rw: item.rw,
       headName: item.headName,
+      phone: item.phone,
       population: item.population,
       households: item.households,
     });
@@ -115,7 +118,7 @@ export default function DashboardRtrwPage() {
         rt: selectedItem ? selectedItem.rt : form.rt,
         rw: selectedItem ? selectedItem.rw : form.rw,
         leader_name: form.headName,
-        phone: selectedItem ? selectedItem.phone : "",
+        phone: form.phone,
         is_active: true,
         updated_at: new Date().toISOString()
       };
@@ -164,7 +167,7 @@ export default function DashboardRtrwPage() {
       {/* Main Table */}
       <DashboardTable
         title="Daftar Unit Kewilayahan Rukun Tetangga / RW"
-        headers={["Rukun Tangga (RT)", "Rukun Warga (RW)", "Nama Ketua RT", "Jumlah Penduduk", "Jumlah KK", "Aksi"]}
+        headers={["Rukun Tangga (RT)", "Rukun Warga (RW)", "Nama Ketua RT", "No WhatsApp", "Jumlah Penduduk", "Jumlah KK", "Aksi"]}
         searchPlaceholder="Cari RT atau nama Ketua..."
         searchValue={search}
         onSearchChange={setSearch}
@@ -180,7 +183,7 @@ export default function DashboardRtrwPage() {
       >
         {filteredRtrw.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={6} className="text-center py-8 text-textMuted font-sans">
+            <TableCell colSpan={7} className="text-center py-8 text-textMuted font-sans">
               Tidak ada data RT/RW ditemukan.
             </TableCell>
           </TableRow>
@@ -194,6 +197,16 @@ export default function DashboardRtrwPage() {
                   <span className="font-bold text-textMain">{item.headName}</span>
                   <span className="text-[10px] text-textMuted font-semibold font-sans tracking-wide uppercase">Ketua RT</span>
                 </div>
+              </TableCell>
+              <TableCell className="px-6 py-4">
+                {item.phone ? (
+                  <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold font-sans">
+                    <Phone className="h-3.5 w-3.5 shrink-0" />
+                    <span>+{item.phone}</span>
+                  </div>
+                ) : (
+                  <span className="text-xs text-textMuted font-sans italic">Belum diisi</span>
+                )}
               </TableCell>
               <TableCell className="px-6 py-4">
                 <div className="flex items-center gap-1 text-textMain font-medium">
@@ -285,6 +298,17 @@ export default function DashboardRtrwPage() {
                 className="rounded-xl border-orinoco/20 text-xs"
                 placeholder="Nama Ketua RT"
                 required
+              />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="phone" className="text-xs font-semibold text-textMain">Nomor WhatsApp Ketua RT</Label>
+              <Input
+                id="phone"
+                value={form.phone}
+                onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
+                className="rounded-xl border-orinoco/20 text-xs"
+                placeholder="Contoh: 6281234567890"
               />
             </div>
 
