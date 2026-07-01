@@ -8,7 +8,7 @@ export const villageProfile: VillageProfile = {
   address: 'Jl. Raya Gempolkarya No. 01, Kecamatan Tirtajaya, Kabupaten Karawang, Jawa Barat 41358',
   phone: '(0267) 840123',
   email: 'pemdes.gempolkarya@example.go.id',
-  whatsapp: '6281234567890',
+  whatsapp: '6282123847577',
   slogan: 'Desa Maju, Hijau, Mandiri, dan Melayani',
   vision: 'Mewujudkan Desa Gempolkarya yang Sejahtera, Mandiri, Berwawasan Lingkungan, serta Unggul dalam Pelayanan Publik.',
   mission: [

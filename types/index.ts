@@ -28,6 +28,7 @@ export interface StaffMember {
   phone?: string;
   email?: string;
   nip?: string;
+  category?: string;
 }
 
 export interface DemographicData {

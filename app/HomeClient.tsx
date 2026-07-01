@@ -356,7 +356,7 @@ export default function HomeClient() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {featuredServices.map((service) => (
-                <ServiceCard key={service.id} service={service} />
+                <ServiceCard key={service.id} service={service} whatsapp={villageData.whatsapp} />
               ))}
             </div>
           )}

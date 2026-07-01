@@ -48,7 +48,7 @@ export default function PemerintahanClient() {
             phone: o.phone || "",
             email: o.email || "",
             nip: o.nip || "",
-            category: o.category || "Perangkat"
+            category: o.category || (o.position.includes("Kepala Dusun") ? "Kewilayahan" : "Perangkat")
           })));
         }
 
@@ -162,7 +162,7 @@ export default function PemerintahanClient() {
               {kaurKasi.length > 0 && (
                 <div className="mb-12 border-t border-orinoco/10 dark:border-border/30 pt-10">
                   <SectionHeader label="Pelaksana Teknis & Staf" title="Kepala Urusan (Kaur) & Kepala Seksi (Kasi)" className="mb-8" />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-center">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto justify-center">
                     {kaurKasi.map((member) => (
                       <div key={member.id} className="w-full">
                         <StaffCard member={member} />

@@ -28,18 +28,18 @@ export function StaffCard({ member }: StaffCardProps) {
         </CardHeader>
 
         {/* Info Area */}
-        <CardContent className="p-5 flex flex-col items-center gap-1.5 w-full flex-1">
-          <div className="flex items-center gap-1 bg-primary/10 text-primary px-2.5 py-0.5 rounded-full dark:bg-primary/20 dark:text-accent-foreground text-[10px] uppercase font-bold tracking-wider font-sans mb-1">
-            <Shield className="h-3 w-3" />
-            {member.role}
+        <CardContent className="p-5 flex flex-col items-center gap-1.5 w-full flex-1 min-w-0">
+          <div className="inline-flex items-center justify-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full dark:bg-primary/20 dark:text-accent-foreground text-[10px] uppercase font-bold tracking-wider font-sans mb-1.5 max-w-full leading-normal">
+            <Shield className="h-3 w-3 shrink-0" />
+            <span className="break-words leading-tight text-center">{member.role}</span>
           </div>
 
-          <h3 className="font-heading text-base font-bold text-textMain dark:text-foreground line-clamp-1 leading-snug">
+          <h3 className="font-heading text-base font-bold text-textMain dark:text-foreground line-clamp-2 leading-snug text-center">
             {member.name}
           </h3>
 
           {member.nip && (
-            <p className="text-[11px] text-textMuted dark:text-muted-foreground font-mono">
+            <p className="text-[11px] text-textMuted dark:text-muted-foreground font-mono whitespace-nowrap overflow-hidden text-ellipsis max-w-full px-2" title={`NIP. ${member.nip}`}>
               NIP. {member.nip}
             </p>
           )}
@@ -47,10 +47,11 @@ export function StaffCard({ member }: StaffCardProps) {
           {member.email && (
             <a
               href={`mailto:${member.email}`}
-              className="mt-2.5 inline-flex items-center gap-1.5 text-xs text-textMuted hover:text-primary dark:text-muted-foreground dark:hover:text-foreground font-sans transition-colors"
+              className="mt-2 inline-flex items-center justify-center gap-1.5 text-xs text-textMuted hover:text-primary dark:text-muted-foreground dark:hover:text-foreground font-sans transition-colors max-w-full px-2"
+              title={member.email}
             >
-              <Mail className="h-3.5 w-3.5" />
-              <span className="truncate max-w-[180px]">{member.email}</span>
+              <Mail className="h-3.5 w-3.5 shrink-0" />
+              <span className="truncate">{member.email}</span>
             </a>
           )}
         </CardContent>
